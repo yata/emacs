@@ -1,0 +1,44 @@
+This is an unofficial patch to FSF Emacs 20.3 under BSD/OS 4.0.
+
+How to apply:
+	% tar xzvf emacs-20.3.tar.gz
+	% cd emacs-20.3
+	% patch < somewhere/emacs-20.3.bsdi4.0.patch
+
+--
+Satoshi Yatagawa
+
+*** /dev/null	Wed Dec 16 23:11:13 1998
+--- src/s/bsdos4.h	Wed Dec 16 23:08:58 1998
+***************
+*** 0 ****
+--- 1,17 ----
++ /* s/ file for BSDI BSD/OS 4.0 system.  */
++ 
++ #include "bsdos3.h"
++ 
++ /* copied from freebsd.h */
++ #ifdef __ELF__
++ 
++ #define LD_SWITCH_SYSTEM
++ #undef START_FILES
++ #define START_FILES \
++ 	pre-crt0.o /usr/lib/crt1.o /usr/lib/crti.o /usr/lib/crtbegin.o
++ #define UNEXEC unexelf.o
++ #define LIB_STANDARD -lgcc -lc -lgcc /usr/lib/crtend.o /usr/lib/crtn.o
++ #undef LIB_GCC
++ #define LIB_GCC
++ 
++ #endif /* not __ELF__ */
+*** configure.orig	Mon Jul 27 17:17:07 1998
+--- configure	Wed Dec 16 22:47:23 1998
+***************
+*** 799,804 ****
+--- 799,805 ----
+        *-*-bsdi2.0* )		opsys=bsdos2 ;;
+        *-*-bsdi2* )		opsys=bsdos2-1 ;;
+        *-*-bsdi3* )		opsys=bsdos3 ;;
++       *-*-bsdi4* )		opsys=bsdos4 ;;
+      esac
+    ;;
+  
