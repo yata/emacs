@@ -1,0 +1,24 @@
+This is a patch to w3-4.0pre.46, to work in Emacs 20.*/MULE 4.1.
+(made by Kyotaro HORIGUCHI and KOSEKI Yoshinori in meadow-develop)
+
+# <URL:http://www.mew.org/archive/meadow-develop/msg01651.html>
+
+[2000/03/17] I fix serious typo. (Special thanks goes to Atsushi Sato)
+
+How to apply:
+	% cd w3-4.0pre.46
+	% patch < w3-4.0pre.46-mule-sysdp.el.patch
+--
+Satoshi Yatagawa <yatagawa@cc.teu.ac.jp>
+
+--- lisp/mule-sysdp.el-dist	Mon Nov 15 07:00:12 1999
++++ lisp/mule-sysdp.el	Tue Nov 16 18:11:31 1999
+@@ -222,7 +222,7 @@
+ 	 (or code (setq code 'automatic-conversion))
+ 	 (decode-coding-region (point-min) (point-max) code)
+ 	 (set-buffer-file-coding-system code))))
+-    (4.0
++    ((4.0 4.1)
+      (when default-enable-multibyte-characters
+        (set-buffer-multibyte t)
+        (if (memq code '(autodetect automatic-conversion))
