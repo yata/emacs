@@ -1,0 +1,41 @@
+This is unofficial patch for Emacs 20.7 (with MULE 4.1) to build under
+Windows (reported by KOSEKI Yoshinori in meadow-users-jp)
+
+This patch is provided by the author "as is" and any express or
+implied warranties are disclaimed.
+
+How to apply:
+	% tar xzvf emacs-20.7.tar.gz
+	% tar xzvf leim-20.7.tar.gz
+	% cd emacs-20.7
+        % patch -p1 < somewhere/emacs-20.7-mule-4.1.patch
+        % patch -p1 < somewhere/emacs-20.7-mule-4.1-nt.patch
+
+-- 
+Satoshi Yatagawa <yatagawa@cc.teu.ac.jp>
+
+diff -ur emacs-20.7/src/ccl.c.orig emacs-20.7/src/ccl.c
+--- emacs-20.7/src/ccl.c.orig	Mon Jun 19 08:56:39 2000
++++ emacs-20.7/src/ccl.c	Sun Jul  9 12:03:33 2000
+@@ -1725,7 +1725,7 @@
+    all symbols are resolved), Qt if resolving of some symbol failed,
+    or nil if CCL contains invalid data.  */
+ 
+-static Lisp_Object
++Lisp_Object
+ resolve_symbol_ccl_program (ccl)
+      Lisp_Object ccl;
+ {
+diff -ur emacs-20.7/src/ccl.h.orig emacs-20.7/src/ccl.h
+--- emacs-20.7/src/ccl.h.orig	Mon Jun 19 08:56:39 2000
++++ emacs-20.7/src/ccl.h	Sun Jul  9 12:07:58 2000
+@@ -71,6 +71,9 @@
+    execution of ccl program CCL_PROG (symbol or vector).  */
+ extern int setup_ccl_program P_ ((struct ccl_program *, Lisp_Object));
+ 
++/* Resolve symbols in the specified CCL code (Lisp vector).  */
++extern Lisp_Object resolve_symbol_ccl_program P_ ((Lisp_Object));
++
+ extern int ccl_driver P_ ((struct ccl_program *, unsigned char *,
+ 			   unsigned char *, int, int, int *));
+ 
